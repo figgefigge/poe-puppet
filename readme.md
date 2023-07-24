@@ -1,7 +1,7 @@
 
-# Camel Poe
+# Poe Puppet
 
-Camel Poe is a TypeScript-based module designed to interact with the Poe AI chatbot. Since GraphQL based alternatives broke every so often and I wanted a node based solution I decided to create this module. I hope it wont break as easily as this uses a normal browser to interact with the chatbot. It uses puppeteer-core to control a headless browser and simulate user interactions with the Poe chatbot. It also uses a logger for detailed logging of operations and errors.
+Puppet Poe is a TypeScript-based module designed to interact with the Poe AI chatbot. Since GraphQL based alternatives broke every so often and I wanted a node based solution I decided to create this module. I hope it wont break as easily as this uses a normal browser to interact with the chatbot. It uses puppeteer-core to control a headless browser and simulate user interactions with the Poe chatbot. It also uses a logger for detailed logging of operations and errors.
 
 This module is not affiliated with Poe in any way.
 
@@ -37,16 +37,16 @@ yard add puppeteer-core path child_process winston
 
 ## Usage
 
-First, import the `camelPoe` class from the module:
+First, import the `PoePuppet` class from the module:
 
 ```javascript
-import camelPoe from './camelPoe';
+import camelPoe from './poe-puppet';
 ```
 
-The `camelPoe` class takes an optional configuration object as a parameter in its constructor. The configuration options are:
+The `PoePuppet` class takes an optional configuration object as a parameter in its constructor. The configuration options are:
 
 ```typescript
-interface CamelPoeOptions {
+interface PoePuppetOptions {
   headless?: boolean;       // run the browser in headless mode, default is true
   writingSpeed?: number;    // time in ms between each character for simulating typing, default is 10
   delayFactor?: number;     // not implemented yet
@@ -57,10 +57,10 @@ interface CamelPoeOptions {
 }
 ```
 
-You can then create a new instance of the `camelPoe` class with optional configuration:
+You can then create a new instance of the `PoePuppet` class with optional configuration:
 
 ```javascript
-const myChatbot = new camelPoe({ /* options */ });
+const myChatbot = new PoePuppet({ /* options */ });
 ```
 
 It's also possible to change options after creating an instance:
@@ -69,24 +69,24 @@ It's also possible to change options after creating an instance:
 myChatbot.chatBot = 'ChatGPT';
 ```
 
-After creating an instance of the `camelPoe` class, use `camelPoe.init()` to initialize the browser and start a new session.
+After creating an instance of the `PoePuppet` class, use `PoePuppet.init()` to initialize the browser and start a new session.
 If it's your first time using the module a normal browser will open for you to log in to your poe account. When you are logged in a cookie is stored in `userDataDir` and you wont have to log in again for a while. After logging in, close the browser and the initialization will continue.
 
-To send a message to the chatbot, use `camelPoe.send(message: string)` wich returns a promise with the response from the chatbot.
+To send a message to the chatbot, use `PoePuppet.send(message: string)` wich returns a promise with the response from the chatbot.
 
 ```javascript
 const response = await myChatbot.send('Hello, Poe!');
 console.log(response); // Hello, human!
 ```
 
-To fetch messages in conversation use `camelPoe.getMessages(quantity: number)` wich returns a promise with an array of the latest specified number of messages in the conversation. If no number is specified only the latest message will return. Its possible to specify a large number to get all availible messages. The messages can still be fetched after clearing the context as they are still visible on the page.
+To fetch messages in conversation use `PoePuppet.getMessages(quantity: number)` wich returns a promise with an array of the latest specified number of messages in the conversation. If no number is specified only the latest message will return. Its possible to specify a large number to get all availible messages. The messages can still be fetched after clearing the context as they are still visible on the page.
 
 ```javascript
 const messages = await myChatbot.getMessages(1); // last two messages
 console.log(messages); // ['Hello, Poe!', 'Hello, human!']
 ```
 
-To clear the context use `camelPoe.clearContext()` wich returns a promise.
+To clear the context use `PoePuppet.clearContext()` wich returns a promise.
 
 ```javascript
 await myChatbot.clearContext(); // Will wait until context is cleared
@@ -96,11 +96,11 @@ myChatbot.clearContext(); // Will continue without waiting and clear the context
 ## Example
 
 ```javascript
-import camelPoe from './camelPoe';
+import PoePuppet from './PoePuppet';
 
 async function main() {
   try {
-    const myChatbot = new camelPoe({
+    const myChatbot = new PoePuppet({
       headless: false,
       writingSpeed: 10,
       browserPath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
