@@ -23,16 +23,25 @@ This module requires the following dependencies:
 - `child_process`
 - `winston`
 
+For building the module you also need:
+
+- `typescript`
+- `tsup`
+
+Build with npm run build or yarn build.
+
 You can install these dependencies using npm:
 
 ```bash
 npm install puppeteer-core path child_process winston
+npm install --save-dev typescript tsup
 ```
 
 or yarn:
 
 ```bash
-yard add puppeteer-core path child_process winston
+yarn add puppeteer-core path child_process winston
+yarn add --dev typescript tsup
 ```
 
 ## Usage
@@ -90,7 +99,6 @@ To clear the context use `PoePuppet.clearContext()` wich returns a promise.
 
 ```javascript
 await myChatbot.clearContext(); // Will wait until context is cleared
-myChatbot.clearContext(); // Will continue without waiting and clear the context in the background
 ```
 
 ## Example
@@ -105,6 +113,7 @@ async function main() {
       writingSpeed: 10,
       browserPath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
       logLevel: 'debug'
+      chatBot: 'Assistant'
     });
 
     // Change default chatbot to ChatGPT
@@ -124,7 +133,6 @@ async function main() {
     // Send message and log response
     const response = await myChatbot.send('What is the meaning of life?');
     console.log(response);
-    await myChatbot.close();
 
     // Fetch 10 latest messages
     const messages = await myChatbot.getMessages(10);
@@ -147,10 +155,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## TODO
 
+- [ ] Documentation for all properties and methods
 - [ ] Add tests
-- [ ] Add more documentation
-- [ ] Add more examples
+- [ ] Add better examples
 - [ ] Implement feature to use webb version of chatGPT, should be pretty similar.
+- [ ] Proxy support would be nice
 
 ## License
 

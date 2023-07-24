@@ -1,6 +1,5 @@
 import PoePuppet from "./src/poe-puppet";
 
-
 /* async function main() {
     const puppet = new PoePuppet({
         headless: false,
