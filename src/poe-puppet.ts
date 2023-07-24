@@ -6,7 +6,7 @@ import { spawnSync } from 'child_process';
 import logger from './logger';
 import { log } from 'winston';
 
-interface CamelPoeOptions {
+interface PuppetPoeOptions {
   headless?: boolean;
   writingSpeed?: number;
   delayFactor?: number;
@@ -31,7 +31,7 @@ class PoePuppet {
   public browserPath: string;
   public logLevel: string;
 
-  constructor(options: CamelPoeOptions = {}) {
+  constructor(options: PuppetPoeOptions = {}) {
     const {
       headless = true,
       writingSpeed = 10,
